@@ -18,6 +18,8 @@ class EasyImageView extends StatefulWidget {
   /// an interaction.
   final void Function(double)? onScaleChanged;
 
+  final ImageErrorWidgetBuilder? errorBuilder;
+
   /// Create a new instance
   /// The optional [doubleTapZoomable] boolean defaults to false and allows double tap to zoom.
   const EasyImageView({
@@ -27,6 +29,7 @@ class EasyImageView extends StatefulWidget {
     this.maxScale = 5.0,
     this.doubleTapZoomable = false,
     this.onScaleChanged,
+    this.errorBuilder,
   }) : super(key: key);
 
   @override
@@ -52,7 +55,10 @@ class _EasyImageViewState extends State<EasyImageView>
 
   @override
   Widget build(BuildContext context) {
-    final image = Image(image: widget.imageProvider);
+    final image = Image(
+      image: widget.imageProvider,
+      errorBuilder: widget.errorBuilder,
+    );
     return SizedBox.expand(
         key: const Key('easy_image_sized_box'),
         child: InteractiveViewer(
